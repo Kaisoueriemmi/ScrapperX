@@ -2,6 +2,123 @@
 
 Toutes les modifications notables de ce projet seront documentées dans ce fichier.
 
+## [1.2.0] - 2026-01-04
+
+### ✨ Ajouté
+
+- **🛡️ Sécurité et Anti-Détection**
+  - Rotation aléatoire de User-Agent (4 User-Agents différents)
+  - Masquage des propriétés WebDriver (navigator.webdriver = undefined)
+  - Désactivation des indicateurs d'automatisation
+  - Préférences Chrome optimisées pour éviter la détection
+- **🤖 Comportement Humain**
+  - Délais aléatoires entre toutes les actions (1-6s selon le contexte)
+  - Scrolls avec délais variables (2-4s)
+  - Simulation de comportement de navigation réaliste
+- **📊 Logging et Monitoring**
+  - Système de logging complet avec fichier `scraper.log`
+  - Horodatage de toutes les actions
+  - Niveaux de log (INFO, WARNING, ERROR, DEBUG)
+  - Statistiques de session détaillées
+- **🔄 Robustesse**
+  - Fonction `safe_find_element()` avec retry automatique (3 tentatives)
+  - Détection automatique de rate limit
+  - Gestion améliorée des exceptions Selenium
+  - Messages d'erreur plus explicites
+- **⚙️ Configuration**
+  - Mode headless configurable (visible/invisible)
+  - Nombre de retries configurable
+  - Choix interactif du mode d'affichage
+- **📈 Statistiques**
+  - Durée totale de scraping
+  - Nombre de scrolls effectués
+  - Nombre d'erreurs rencontrées
+  - Nombre de retries effectués
+
+### 🔧 Modifié
+
+- **Architecture du Code**
+  - Refactorisation complète de la classe `TwitterScraper`
+  - Ajout de paramètres configurables dans `__init__()`
+  - Séparation des responsabilités (logging, retry, détection)
+- **Fonction `scrape_post_data()`**
+  - Ajout de délais aléatoires
+  - Détection de rate limit avant extraction
+  - Logging détaillé de chaque étape
+  - Meilleure gestion des erreurs
+- **Fonction `scrape_comments()`**
+  - Délais aléatoires entre les scrolls
+  - Logging de la progression
+  - Statistiques en temps réel
+  - Gestion améliorée des doublons
+- **Fonction `export_to_excel()`**
+  - Ajout de la ligne "Scrolls effectués"
+  - Logging de l'export
+  - Meilleure gestion des erreurs
+- **Fonction `main()`**
+  - Ajout du choix du mode headless
+  - Affichage des statistiques finales
+  - Meilleure présentation des résultats
+
+### 📝 Documentation
+
+- Création de `SECURITY_v1.2.0.md` - Guide de sécurité complet
+- Création de `FINAL_SUMMARY.md` - Résumé de la version 1.2.0
+- Mise à jour du CHANGELOG.md
+- Sauvegarde de l'ancienne version dans `twitter_scraper_backup.py`
+
+### 🐛 Corrigé
+
+- Nettoyage du code dupliqué dans `twitter_scraper.py`
+- Correction des problèmes de chargement des commentaires
+- Amélioration de la détection des éléments
+- Meilleure gestion des timeouts
+
+### ✨ Ajouté
+
+- **🚀 Extraction de TOUS les commentaires disponibles**
+  - Nouveau mode par défaut : extraction illimitée des commentaires
+  - Défilement automatique continu jusqu'à la fin des commentaires
+  - Détection intelligente de la fin du contenu (3 tentatives sans nouveau contenu)
+  - Système de déduplication pour éviter les commentaires en double
+- **📊 Affichage de progression en temps réel**
+  - Compteur de scrolls effectués
+  - Nombre de tweets chargés à chaque scroll
+  - Progression de l'extraction tous les 10 commentaires
+  - Messages informatifs à chaque étape
+- **🎯 Mode interactif amélioré**
+  - Choix entre extraction complète ou limitée
+  - Interface en 3 étapes claires (Post → Commentaires → Export)
+  - Messages de statut détaillés
+  - Meilleure gestion des erreurs avec traceback
+- **📈 Nouvelles données extraites**
+  - Nombre de réponses pour chaque commentaire
+  - Compteur de commentaires extraits dans les statistiques du post
+  - Colonne "Réponses" ajoutée dans l'export Excel
+
+### 🔧 Modifié
+
+- **Séparation de la logique de scraping**
+  - `scrape_post_data()` ne scrape plus automatiquement les commentaires
+  - Contrôle manuel de chaque étape pour plus de flexibilité
+  - Meilleure gestion de la mémoire
+- **Amélioration de l'algorithme de scroll**
+  - Temps d'attente augmenté à 2.5s pour un meilleur chargement
+  - Détection plus robuste de la fin du contenu
+  - Gestion des cas où la hauteur ne change pas
+- **Interface utilisateur**
+  - Messages plus clairs et informatifs
+  - Emojis pour une meilleure lisibilité
+  - Séparation visuelle des étapes
+  - Affichage détaillé des statistiques finales
+
+### 📝 Documentation
+
+- Mise à jour du README.md avec les nouvelles fonctionnalités
+- Exemple d'utilisation programmatique mis à jour
+- Nouvelle section sur l'extraction de tous les commentaires
+- Exemple de sortie actualisé avec la progression en temps réel
+
 ## [1.0.0] - 2026-01-04
 
 ### ✨ Ajouté

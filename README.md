@@ -1,6 +1,6 @@
 # 🐦 ScrapperX - Twitter/X Post Scraper
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+![Version](https://img.shields.io/badge/version-1.2.0-blue.svg)
 ![Python](https://img.shields.io/badge/python-3.8+-brightgreen.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Status](https://img.shields.io/badge/status-active-success.svg)
@@ -22,6 +22,8 @@ Un outil Python puissant pour scraper les réactions, retweets et commentaires d
 
 ## 🔧 Installation
 
+### Windows
+
 1. **Cloner ou télécharger le projet**
 
 2. **Installer les dépendances**
@@ -29,6 +31,34 @@ Un outil Python puissant pour scraper les réactions, retweets et commentaires d
 ```bash
 pip install -r requirements.txt
 ```
+
+3. **Lancer le scraper**
+
+```bash
+python twitter_scraper.py
+# ou
+run.bat
+```
+
+### macOS / Linux
+
+1. **Cloner ou télécharger le projet**
+
+2. **Installer les dépendances**
+
+```bash
+pip3 install -r requirements.txt
+```
+
+3. **Lancer le scraper**
+
+```bash
+python3 twitter_scraper.py
+# ou
+chmod +x run_macos.sh && ./run_macos.sh
+```
+
+📖 **Guide complet macOS** : Consultez [`QUICKSTART_MACOS.md`](QUICKSTART_MACOS.md) pour un guide détaillé spécifique à macOS.
 
 Les dépendances incluent:
 
@@ -61,9 +91,17 @@ scraper = TwitterScraper()
 
 # Scraper un post
 post_url = "https://twitter.com/username/status/1234567890"
-post_data, comments = scraper.scrape_post_data(post_url)
 
-# Exporter vers Excel
+# Étape 1: Extraire les données du post
+post_data = scraper.scrape_post_data(post_url)
+
+# Étape 2: Extraire les commentaires (tous par défaut)
+comments = scraper.scrape_comments()
+
+# Ou avec une limite
+# comments = scraper.scrape_comments(max_comments=50)
+
+# Étape 3: Exporter vers Excel
 scraper.export_to_excel(post_data, comments, "mon_export.xlsx")
 
 # Fermer le scraper
@@ -83,6 +121,7 @@ Le fichier Excel généré contient deux feuilles:
 - Nombre de likes
 - Nombre de réponses
 - Nombre de vues
+- **Nombre de commentaires extraits** (nouveau)
 
 ### Feuille 2: "Commentaires"
 
@@ -93,6 +132,7 @@ Le fichier Excel généré contient deux feuilles:
 - Date de publication
 - Nombre de likes
 - Nombre de retweets
+- **Nombre de réponses** (nouveau)
 
 ## ⚙️ Configuration
 
@@ -107,11 +147,28 @@ Par défaut, le scraper fonctionne en mode headless (sans interface graphique). 
 
 ### Nombre de commentaires
 
-Par défaut, le scraper extrait jusqu'à 50 commentaires. Pour modifier ce nombre:
+**🆕 Nouvelle fonctionnalité**: Le scraper peut maintenant extraire **TOUS** les commentaires disponibles!
+
+Lors de l'exécution, vous aurez le choix:
+
+1. **Tous les commentaires** (recommandé) - Le scraper défilera automatiquement jusqu'à charger tous les commentaires disponibles
+2. **Nombre limité** - Spécifiez un nombre maximum de commentaires à extraire
+
+Pour l'utilisation programmatique:
 
 ```python
-comments = self.scrape_comments(max_comments=100)  # Extraire 100 commentaires
+# Extraire TOUS les commentaires (par défaut)
+comments = scraper.scrape_comments()
+
+# Ou limiter à un nombre spécifique
+comments = scraper.scrape_comments(max_comments=100)
 ```
+
+Le scraper affiche la progression en temps réel:
+
+- Nombre de scrolls effectués
+- Nombre de tweets chargés
+- Nombre de commentaires extraits
 
 ## ⚠️ Limitations et Notes
 
@@ -152,27 +209,72 @@ time.sleep(5)  # Augmentez cette valeur
 
 📎 Entrez l'URL du post Twitter/X: https://twitter.com/example/status/123
 
+💬 Nombre de commentaires à extraire:
+   1. Tous les commentaires (recommandé)
+   2. Nombre limité
+
+Votre choix (1 ou 2): 1
+✅ Extraction de TOUS les commentaires disponibles
+
 ✅ Driver Chrome initialisé avec succès
 
-🔍 Scraping du post: https://twitter.com/example/status/123
-📊 Statistiques extraites:
-   - Retweets: 1.2K
-   - Likes: 5.3K
-   - Réponses: 234
-   - Vues: 45.6K
+============================================================
+📊 ÉTAPE 1: Extraction des données du post
+============================================================
+
+🔍 Accès au post: https://twitter.com/example/status/123
+✅ Statistiques du post extraites:
+   • Retweets: 1.2K
+   • Likes: 5.3K
+   • Réponses: 234
+   • Vues: 45.6K
+
+============================================================
+📊 ÉTAPE 2: Extraction des commentaires
+============================================================
 
 💬 Extraction des commentaires...
-✅ 50 commentaires extraits
+⏳ Défilement pour charger tous les commentaires disponibles...
+   📊 Scroll #1 - 25 tweets chargés
+   📊 Scroll #2 - 52 tweets chargés
+   📊 Scroll #3 - 89 tweets chargés
+   📊 Scroll #4 - 134 tweets chargés
+   📊 Scroll #5 - 187 tweets chargés
+   📊 Scroll #6 - 234 tweets chargés
+   📊 Tentative 1/3 - 234 tweets chargés
+   📊 Tentative 2/3 - 234 tweets chargés
+   📊 Tentative 3/3 - 234 tweets chargés
 
-📝 Export vers Excel: twitter_scrape_20260104_213845.xlsx
+✅ Défilement terminé après 6 scrolls
+📝 Extraction des données des commentaires...
+   Total de tweets trouvés: 234
+   ⏳ 10 commentaires extraits...
+   ⏳ 20 commentaires extraits...
+   ⏳ 30 commentaires extraits...
+   ...
+   ⏳ 230 commentaires extraits...
+
+✅ 233 commentaires uniques extraits avec succès!
+
+============================================================
+📊 ÉTAPE 3: Export vers Excel
+============================================================
+
+📝 Export vers Excel: twitter_scrape_20260104_215236.xlsx
 ✅ Fichier Excel créé avec succès
 
 ============================================================
 ✅ SCRAPING TERMINÉ AVEC SUCCÈS!
-📁 Fichier: twitter_scrape_20260104_213845.xlsx
-📊 Statistiques: 1.2K RT, 5.3K Likes
-💬 Commentaires: 50
 ============================================================
+📁 Fichier: twitter_scrape_20260104_215236.xlsx
+📊 Statistiques du post:
+   • Retweets: 1.2K
+   • Likes: 5.3K
+   • Vues: 45.6K
+💬 Commentaires extraits: 233
+============================================================
+
+🔒 Fermeture du navigateur...
 ```
 
 ## 📄 Licence
