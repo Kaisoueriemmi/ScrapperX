@@ -1,6 +1,11 @@
-# Twitter/X Post Scraper
+# 🐦 ScrapperX - Twitter/X Post Scraper
 
-Un outil Python pour scraper les réactions, retweets et commentaires d'un post X (Twitter) et exporter les données dans un fichier Excel.
+![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+![Python](https://img.shields.io/badge/python-3.8+-brightgreen.svg)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
+![Status](https://img.shields.io/badge/status-active-success.svg)
+
+Un outil Python puissant pour scraper les réactions, retweets et commentaires d'un post X (Twitter) et exporter les données dans un fichier Excel professionnel.
 
 ## 🚀 Fonctionnalités
 
