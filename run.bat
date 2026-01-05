@@ -1,4 +1,5 @@
 @echo off
+chcp 65001 >nul
 REM Script de lancement rapide pour ScrapperX
 REM Windows Batch File
 

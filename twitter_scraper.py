@@ -14,6 +14,7 @@ Améliorations v1.2.0:
 
 import os
 import re
+import sys
 import time
 import random
 import logging
@@ -31,6 +32,23 @@ from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from openpyxl import Workbook
 from openpyxl.styles import Font, PatternFill, Alignment
+
+# Configuration de l'encodage UTF-8 pour Windows
+if sys.platform.startswith('win'):
+    # Forcer l'encodage UTF-8 pour stdout et stderr
+    if sys.stdout.encoding != 'utf-8':
+        sys.stdout.reconfigure(encoding='utf-8')
+    if sys.stderr.encoding != 'utf-8':
+        sys.stderr.reconfigure(encoding='utf-8')
+    # Configurer la console Windows pour UTF-8
+    try:
+        import ctypes
+        kernel32 = ctypes.windll.kernel32
+        kernel32.SetConsoleCP(65001)  # UTF-8 input
+        kernel32.SetConsoleOutputCP(65001)  # UTF-8 output
+    except:
+        pass
+
 
 # Configuration du logging
 logging.basicConfig(
