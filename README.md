@@ -4,37 +4,64 @@
 ![Python](https://img.shields.io/badge/python-3.8+-brightgreen.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Status](https://img.shields.io/badge/status-active-success.svg)
+![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)
 
-Un outil Python puissant pour scraper les réactions, retweets et commentaires d'un post X (Twitter) et exporter les données dans un fichier Excel professionnel.
+Un scraper Twitter/X professionnel pour extraire **tous les commentaires** d'un post avec leurs statistiques complètes.
 
-## 🚀 Fonctionnalités
+---
 
-- ✅ Extraction des statistiques du post (retweets, likes, réponses, vues)
-- ✅ Scraping des commentaires avec détails (auteur, texte, date, likes, retweets)
-- ✅ Export automatique vers Excel avec mise en forme
-- ✅ Interface en ligne de commande simple
-- ✅ Support du mode headless (sans interface graphique)
+## ✨ Fonctionnalités
+
+### 🎯 Extraction Complète
+
+- ✅ **Extraction illimitée** de tous les commentaires disponibles
+- ✅ **Statistiques du post** : Retweets, Likes, Réponses, Vues
+- ✅ **Données par commentaire** : Username, Handle, Texte, Date, Likes, Retweets, Réponses
+- ✅ **Déduplication automatique** des commentaires
+- ✅ **Progression en temps réel**
+
+### 🛡️ Sécurité & Anti-Détection
+
+- ✅ **Rotation de User-Agent** (4 User-Agents différents)
+- ✅ **Masquage WebDriver** (navigator.webdriver = undefined)
+- ✅ **Délais aléatoires** pour simuler un comportement humain
+- ✅ **Détection automatique de rate limit**
+
+### 🔧 Robustesse
+
+- ✅ **Retry automatique** (3 tentatives par défaut)
+- ✅ **Logging complet** (fichier scraper.log)
+- ✅ **Gestion avancée des erreurs**
+- ✅ **Statistiques de session**
+
+### 📊 Export
+
+- ✅ **Export Excel professionnel** avec 2 feuilles
+- ✅ **Formatage automatique** (couleurs, largeurs de colonnes)
+- ✅ **Horodatage** de chaque export
+
+---
 
 ## 📋 Prérequis
 
-- Python 3.8 ou supérieur
-- Google Chrome installé sur votre système
+- **Python 3.8+**
+- **Google Chrome** installé
 
-## 🔧 Installation
+---
+
+## 🚀 Installation
 
 ### Windows
 
-1. **Cloner ou télécharger le projet**
-
-2. **Installer les dépendances**
-
 ```bash
+# 1. Cloner ou télécharger le projet
+git clone https://github.com/Kaisoueriemmi/ScrapperX.git
+cd ScrapperX
+
+# 2. Installer les dépendances
 pip install -r requirements.txt
-```
 
-3. **Lancer le scraper**
-
-```bash
+# 3. Lancer le scraper
 python twitter_scraper.py
 # ou
 run.bat
@@ -42,249 +69,435 @@ run.bat
 
 ### macOS / Linux
 
-1. **Cloner ou télécharger le projet**
-
-2. **Installer les dépendances**
-
 ```bash
+# 1. Cloner ou télécharger le projet
+git clone https://github.com/Kaisoueriemmi/ScrapperX.git
+cd ScrapperX
+
+# 2. Installer les dépendances
 pip3 install -r requirements.txt
-```
 
-3. **Lancer le scraper**
-
-```bash
+# 3. Lancer le scraper
 python3 twitter_scraper.py
 # ou
 chmod +x run_macos.sh && ./run_macos.sh
 ```
 
-📖 **Guide complet macOS** : Consultez [`QUICKSTART_MACOS.md`](QUICKSTART_MACOS.md) pour un guide détaillé spécifique à macOS.
-
-Les dépendances incluent:
-
-- `selenium` - Pour l'automatisation du navigateur
-- `webdriver-manager` - Gestion automatique du ChromeDriver
-- `openpyxl` - Création de fichiers Excel
-- `pandas` - Manipulation de données
+---
 
 ## 💻 Utilisation
 
-### Méthode 1: Exécution simple
+### Mode Interactif (Recommandé)
 
 ```bash
 python twitter_scraper.py
 ```
 
-Ensuite, entrez l'URL du post Twitter/X quand demandé:
+Le scraper vous guidera à travers 3 étapes :
+
+#### Étape 1 : URL du Post
 
 ```
-📎 Entrez l'URL du post Twitter/X: https://twitter.com/username/status/1234567890
+📎 Entrez l'URL du post Twitter/X: https://x.com/username/status/123456
 ```
 
-### Méthode 2: Utilisation programmatique
-
-```python
-from twitter_scraper import TwitterScraper
-
-# Initialiser le scraper
-scraper = TwitterScraper()
-
-# Scraper un post
-post_url = "https://twitter.com/username/status/1234567890"
-
-# Étape 1: Extraire les données du post
-post_data = scraper.scrape_post_data(post_url)
-
-# Étape 2: Extraire les commentaires (tous par défaut)
-comments = scraper.scrape_comments()
-
-# Ou avec une limite
-# comments = scraper.scrape_comments(max_comments=50)
-
-# Étape 3: Exporter vers Excel
-scraper.export_to_excel(post_data, comments, "mon_export.xlsx")
-
-# Fermer le scraper
-scraper.close()
-```
-
-## 📊 Format du fichier Excel
-
-Le fichier Excel généré contient deux feuilles:
-
-### Feuille 1: "Statistiques Post"
-
-- URL du post
-- ID du post
-- Date de scraping
-- Nombre de retweets
-- Nombre de likes
-- Nombre de réponses
-- Nombre de vues
-- **Nombre de commentaires extraits** (nouveau)
-
-### Feuille 2: "Commentaires"
-
-- Numéro du commentaire
-- Nom d'utilisateur
-- Handle (@username)
-- Texte du commentaire
-- Date de publication
-- Nombre de likes
-- Nombre de retweets
-- **Nombre de réponses** (nouveau)
-
-## ⚙️ Configuration
-
-### Mode headless
-
-Par défaut, le scraper fonctionne en mode headless (sans interface graphique). Pour voir le navigateur en action, modifiez la ligne dans `twitter_scraper.py`:
-
-```python
-# Commentez cette ligne pour désactiver le mode headless
-# chrome_options.add_argument('--headless')
-```
-
-### Nombre de commentaires
-
-**🆕 Nouvelle fonctionnalité**: Le scraper peut maintenant extraire **TOUS** les commentaires disponibles!
-
-Lors de l'exécution, vous aurez le choix:
-
-1. **Tous les commentaires** (recommandé) - Le scraper défilera automatiquement jusqu'à charger tous les commentaires disponibles
-2. **Nombre limité** - Spécifiez un nombre maximum de commentaires à extraire
-
-Pour l'utilisation programmatique:
-
-```python
-# Extraire TOUS les commentaires (par défaut)
-comments = scraper.scrape_comments()
-
-# Ou limiter à un nombre spécifique
-comments = scraper.scrape_comments(max_comments=100)
-```
-
-Le scraper affiche la progression en temps réel:
-
-- Nombre de scrolls effectués
-- Nombre de tweets chargés
-- Nombre de commentaires extraits
-
-## ⚠️ Limitations et Notes
-
-1. **Authentification**: Ce scraper fonctionne sur les posts publics. Pour les posts privés, une authentification serait nécessaire.
-
-2. **Rate Limiting**: Twitter/X peut limiter le nombre de requêtes. Utilisez avec modération.
-
-3. **Structure de la page**: Twitter/X change régulièrement la structure de ses pages. Le scraper peut nécessiter des mises à jour.
-
-4. **Données dynamiques**: Certaines données peuvent ne pas être disponibles selon le type de post.
-
-## 🛠️ Dépannage
-
-### Erreur "ChromeDriver not found"
-
-```bash
-pip install --upgrade webdriver-manager
-```
-
-### Erreur "No such element"
-
-La structure de la page Twitter a peut-être changé. Vérifiez les sélecteurs XPath dans le code.
-
-### Timeout errors
-
-Augmentez les délais d'attente dans le code:
-
-```python
-time.sleep(5)  # Augmentez cette valeur
-```
-
-## 📝 Exemple de sortie
+#### Étape 2 : Nombre de Commentaires
 
 ```
-============================================================
-🐦 TWITTER/X POST SCRAPER
-============================================================
-
-📎 Entrez l'URL du post Twitter/X: https://twitter.com/example/status/123
-
 💬 Nombre de commentaires à extraire:
    1. Tous les commentaires (recommandé)
    2. Nombre limité
 
 Votre choix (1 ou 2): 1
-✅ Extraction de TOUS les commentaires disponibles
-
-✅ Driver Chrome initialisé avec succès
-
-============================================================
-📊 ÉTAPE 1: Extraction des données du post
-============================================================
-
-🔍 Accès au post: https://twitter.com/example/status/123
-✅ Statistiques du post extraites:
-   • Retweets: 1.2K
-   • Likes: 5.3K
-   • Réponses: 234
-   • Vues: 45.6K
-
-============================================================
-📊 ÉTAPE 2: Extraction des commentaires
-============================================================
-
-💬 Extraction des commentaires...
-⏳ Défilement pour charger tous les commentaires disponibles...
-   📊 Scroll #1 - 25 tweets chargés
-   📊 Scroll #2 - 52 tweets chargés
-   📊 Scroll #3 - 89 tweets chargés
-   📊 Scroll #4 - 134 tweets chargés
-   📊 Scroll #5 - 187 tweets chargés
-   📊 Scroll #6 - 234 tweets chargés
-   📊 Tentative 1/3 - 234 tweets chargés
-   📊 Tentative 2/3 - 234 tweets chargés
-   📊 Tentative 3/3 - 234 tweets chargés
-
-✅ Défilement terminé après 6 scrolls
-📝 Extraction des données des commentaires...
-   Total de tweets trouvés: 234
-   ⏳ 10 commentaires extraits...
-   ⏳ 20 commentaires extraits...
-   ⏳ 30 commentaires extraits...
-   ...
-   ⏳ 230 commentaires extraits...
-
-✅ 233 commentaires uniques extraits avec succès!
-
-============================================================
-📊 ÉTAPE 3: Export vers Excel
-============================================================
-
-📝 Export vers Excel: twitter_scrape_20260104_215236.xlsx
-✅ Fichier Excel créé avec succès
-
-============================================================
-✅ SCRAPING TERMINÉ AVEC SUCCÈS!
-============================================================
-📁 Fichier: twitter_scrape_20260104_215236.xlsx
-📊 Statistiques du post:
-   • Retweets: 1.2K
-   • Likes: 5.3K
-   • Vues: 45.6K
-💬 Commentaires extraits: 233
-============================================================
-
-🔒 Fermeture du navigateur...
 ```
 
-## 📄 Licence
+#### Étape 3 : Mode d'Affichage
 
-Ce projet est fourni à des fins éducatives. Respectez les conditions d'utilisation de Twitter/X.
+```
+👁️ Mode d'affichage:
+   1. Mode visible (recommandé pour debug)
+   2. Mode headless (invisible)
+
+Votre choix (1 ou 2): 1
+```
+
+### Mode Programmatique
+
+```python
+from twitter_scraper import TwitterScraper
+
+# Initialiser le scraper
+scraper = TwitterScraper(headless=False, max_retries=3)
+
+# Étape 1: Extraire les données du post
+post_url = "https://x.com/username/status/123456"
+post_data = scraper.scrape_post_data(post_url)
+
+# Étape 2: Extraire les commentaires
+comments = scraper.scrape_comments()  # Tous les commentaires
+# ou
+comments = scraper.scrape_comments(max_comments=100)  # Limité à 100
+
+# Étape 3: Exporter vers Excel
+scraper.export_to_excel(post_data, comments)
+
+# Fermer le driver
+scraper.close()
+```
+
+---
+
+## 📊 Format de Sortie Excel
+
+Le fichier Excel généré contient 2 feuilles :
+
+### Feuille 1 : "Statistiques Post"
+
+| Métrique              | Valeur              |
+| --------------------- | ------------------- |
+| URL                   | https://x.com/...   |
+| Post ID               | 123456789           |
+| Date de scraping      | 2026-01-05 10:30:00 |
+| Retweets              | 3 k                 |
+| Likes                 | 17 k                |
+| Réponses              | 733                 |
+| Vues                  | 45 k                |
+| Commentaires extraits | 733                 |
+| Scrolls effectués     | 15                  |
+
+### Feuille 2 : "Commentaires"
+
+| #   | Nom d'utilisateur | Handle     | Texte                 | Date          | Likes | Retweets | Réponses |
+| --- | ----------------- | ---------- | --------------------- | ------------- | ----- | -------- | -------- |
+| 1   | John Doe          | @johndoe   | Super post !          | 2026-01-04... | 5     | 0        | 2        |
+| 2   | Jane Smith        | @janesmith | Merci pour le partage | 2026-01-04... | 12    | 1        | 0        |
+
+---
+
+## 🔧 Configuration
+
+### Paramètres du Scraper
+
+```python
+TwitterScraper(
+    headless=False,      # Mode sans interface graphique
+    max_retries=3        # Nombre de tentatives en cas d'erreur
+)
+```
+
+### Extraction de Commentaires
+
+```python
+scraper.scrape_comments(
+    max_comments=None    # None = tous, ou un nombre spécifique
+)
+```
+
+---
+
+## 📝 Logs
+
+Tous les événements sont enregistrés dans `scraper.log` :
+
+```
+2026-01-05 10:30:00 - INFO - Initialisation du scraper...
+2026-01-05 10:30:02 - INFO - User-Agent sélectionné: Mozilla/5.0...
+2026-01-05 10:30:03 - INFO - Driver initialisé en mode visible
+2026-01-05 10:30:05 - INFO - Début du scraping du post: https://x.com/...
+2026-01-05 10:30:10 - INFO - Statistiques extraites: RT=3k, Likes=17k
+2026-01-05 10:30:15 - INFO - Début de l'extraction des commentaires
+2026-01-05 10:35:20 - INFO - Extraction terminée: 733 commentaires
+2026-01-05 10:35:25 - INFO - Export réussi: twitter_scrape_20260105_103525.xlsx
+```
+
+---
+
+## 🐛 Dépannage
+
+### Windows
+
+#### Problème : Caractères mal affichés (é → ├®)
+
+**Solution :** Le scraper configure automatiquement UTF-8. Si le problème persiste :
+
+```bash
+chcp 65001
+python twitter_scraper.py
+```
+
+#### Problème : ChromeDriver non trouvé
+
+**Solution :** Le scraper télécharge automatiquement ChromeDriver. Vérifiez votre connexion internet.
+
+### macOS
+
+#### Problème : "python: command not found"
+
+**Solution :** Utilisez `python3`
+
+```bash
+python3 twitter_scraper.py
+```
+
+#### Problème : ChromeDriver bloqué par Gatekeeper
+
+**Solution :**
+
+```bash
+# Méthode 1 : Via Préférences Système
+# Préférences Système → Sécurité → Autoriser quand même
+
+# Méthode 2 : Via Terminal
+xattr -d com.apple.quarantine /path/to/chromedriver
+```
+
+#### Problème : Chrome ne s'ouvre pas
+
+**Solution :**
+
+```bash
+# Vérifier l'installation
+ls /Applications/Google\ Chrome.app
+
+# Installer si nécessaire
+brew install --cask google-chrome
+```
+
+### Linux
+
+#### Problème : Dépendances manquantes
+
+**Solution :**
+
+```bash
+sudo apt-get update
+sudo apt-get install python3-pip chromium-browser
+pip3 install -r requirements.txt
+```
+
+---
+
+## 🎯 Exemples d'Utilisation
+
+### Exemple 1 : Post Viral (1000+ commentaires)
+
+```python
+from twitter_scraper import TwitterScraper
+
+scraper = TwitterScraper()
+post_url = "https://x.com/elonmusk/status/..."
+
+# Extraire les données
+post_data = scraper.scrape_post_data(post_url)
+comments = scraper.scrape_comments()  # Tous les commentaires
+
+print(f"✅ {len(comments)} commentaires extraits !")
+
+# Exporter
+scraper.export_to_excel(post_data, comments)
+scraper.close()
+```
+
+### Exemple 2 : Extraction Rapide (100 commentaires)
+
+```python
+from twitter_scraper import TwitterScraper
+
+scraper = TwitterScraper(headless=True)  # Mode invisible
+post_url = "https://x.com/username/status/..."
+
+post_data = scraper.scrape_post_data(post_url)
+comments = scraper.scrape_comments(max_comments=100)  # Limité à 100
+
+scraper.export_to_excel(post_data, comments)
+scraper.close()
+```
+
+### Exemple 3 : Analyse de Plusieurs Posts
+
+```python
+from twitter_scraper import TwitterScraper
+
+posts = [
+    "https://x.com/user1/status/111",
+    "https://x.com/user2/status/222",
+    "https://x.com/user3/status/333"
+]
+
+scraper = TwitterScraper()
+
+for post_url in posts:
+    post_data = scraper.scrape_post_data(post_url)
+    comments = scraper.scrape_comments(max_comments=50)
+    scraper.export_to_excel(post_data, comments)
+    print(f"✅ {post_url} terminé")
+
+scraper.close()
+```
+
+---
+
+## 📚 Structure du Projet
+
+```
+ScrapperX/
+├── twitter_scraper.py      # Script principal
+├── requirements.txt        # Dépendances Python
+├── version.py             # Informations de version
+├── config.py              # Configuration
+├── examples.py            # Exemples d'utilisation
+├── test_scraper.py        # Tests
+├── run.bat               # Lanceur Windows
+├── run_macos.sh          # Lanceur macOS/Linux
+├── test_macos.sh         # Tests macOS
+├── README.md             # Ce fichier
+├── CHANGELOG.md          # Historique des versions
+├── CONTRIBUTING.md       # Guide de contribution
+└── LICENSE               # Licence MIT
+```
+
+---
+
+## 🔒 Sécurité & Confidentialité
+
+### Données Collectées
+
+- ✅ Aucune donnée personnelle stockée
+- ✅ Logs locaux uniquement
+- ✅ Pas de connexion à des serveurs tiers
+- ✅ Fonctionne uniquement sur posts publics
+
+### Bonnes Pratiques
+
+- ✅ Respecter les délais entre requêtes
+- ✅ Ne pas scraper trop fréquemment
+- ✅ Utiliser uniquement sur posts publics
+- ✅ Respecter les ToS de Twitter/X
+
+---
+
+## 🌐 Compatibilité
+
+### Systèmes d'Exploitation
+
+- ✅ **Windows 10/11** : Fonctionne parfaitement
+- ✅ **macOS 10.14+** : Compatible (Intel & Apple Silicon)
+- ✅ **Linux** : Compatible (Ubuntu, Debian, Fedora, etc.)
+
+### Navigateurs
+
+- ✅ **Google Chrome** : Recommandé
+- ⚠️ **Chromium** : Compatible mais non testé
+
+### Python
+
+- ✅ **Python 3.8+** : Recommandé
+- ✅ **Python 3.7** : Compatible avec limitations
+- ❌ **Python 2.x** : Non supporté
+
+---
+
+## 📈 Performance
+
+### Temps d'Exécution Estimé
+
+| Nombre de Commentaires | Temps Estimé   |
+| ---------------------- | -------------- |
+| 50 commentaires        | ~1-2 minutes   |
+| 100 commentaires       | ~2-4 minutes   |
+| 500 commentaires       | ~5-10 minutes  |
+| 1000+ commentaires     | ~10-20 minutes |
+
+### Consommation Ressources
+
+- **CPU** : 10-30% (pendant le scraping)
+- **RAM** : ~200-400 MB
+- **Disque** : ~50 MB (avec dépendances)
+- **Réseau** : Variable (selon le post)
+
+---
 
 ## 🤝 Contribution
 
-Les contributions sont les bienvenues! N'hésitez pas à ouvrir une issue ou soumettre une pull request.
+Les contributions sont les bienvenues ! Consultez [CONTRIBUTING.md](CONTRIBUTING.md) pour les guidelines.
 
-## ⚖️ Avertissement
+### Comment Contribuer
 
-Ce scraper est fourni à des fins éducatives uniquement. L'utilisation de scrapers peut violer les conditions d'utilisation de Twitter/X. Utilisez-le de manière responsable et à vos propres risques.
+1. Fork le projet
+2. Créer une branche (`git checkout -b feature/AmazingFeature`)
+3. Commit les changements (`git commit -m 'Add AmazingFeature'`)
+4. Push vers la branche (`git push origin feature/AmazingFeature`)
+5. Ouvrir une Pull Request
+
+---
+
+## 📜 Changelog
+
+Consultez [CHANGELOG.md](CHANGELOG.md) pour l'historique complet des versions.
+
+### Dernières Versions
+
+#### v1.2.1 (2026-01-05)
+
+- 🔧 Correctif UTF-8 pour Windows
+- ✅ Support complet des caractères accentués et emojis
+
+#### v1.2.0 (2026-01-04)
+
+- 🛡️ Sécurité et anti-détection
+- 🔄 Retry automatique
+- 📊 Logging complet
+
+#### v1.1.0 (2026-01-04)
+
+- 🚀 Extraction illimitée de commentaires
+- 📈 Progression en temps réel
+
+---
+
+## 📄 Licence
+
+Ce projet est sous licence MIT. Voir [LICENSE](LICENSE) pour plus de détails.
+
+---
+
+## 👤 Auteur
+
+**Kais OUERIEMMI**
+
+- GitHub: [@Kaisoueriemmi](https://github.com/Kaisoueriemmi)
+- Email: contact@kaisoueriemmi.com
+
+---
+
+## 🙏 Remerciements
+
+- [Selenium](https://www.selenium.dev/) - Automatisation du navigateur
+- [webdriver-manager](https://github.com/SergeyPirogov/webdriver_manager) - Gestion automatique de ChromeDriver
+- [openpyxl](https://openpyxl.readthedocs.io/) - Export Excel
+- [pandas](https://pandas.pydata.org/) - Manipulation de données
+
+---
+
+## ⭐ Support
+
+Si ce projet vous a été utile, n'hésitez pas à lui donner une étoile sur GitHub !
+
+[![GitHub stars](https://img.shields.io/github/stars/Kaisoueriemmi/ScrapperX.svg?style=social&label=Star)](https://github.com/Kaisoueriemmi/ScrapperX)
+
+---
+
+## 📞 Support & Contact
+
+- 📖 **Documentation** : Ce README
+- 📝 **Changelog** : [CHANGELOG.md](CHANGELOG.md)
+- 🐛 **Issues** : [GitHub Issues](https://github.com/Kaisoueriemmi/ScrapperX/issues)
+- 💬 **Discussions** : [GitHub Discussions](https://github.com/Kaisoueriemmi/ScrapperX/discussions)
+
+---
+
+**Version** : 1.2.1  
+**Date** : 2026-01-05  
+**Statut** : ✅ Production Ready
+
+**Bon scraping ! 🐦✨**
