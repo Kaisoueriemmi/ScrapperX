@@ -2,14 +2,29 @@
 Version information for ScrapperX
 """
 
-__version__ = "1.2.0"
+__version__ = "1.2.1"
 __author__ = "Kais OUERIEMMI"
 __email__ = "contact@kaisoueriemmi.com"
 __status__ = "Production"
-__date__ = "2026-01-04"
+__date__ = "2026-01-05"
 
 # Version history
 VERSION_HISTORY = {
+    "1.2.1": {
+        "date": "2026-01-05",
+        "type": "correctif",
+        "fixes": [
+            "Configuration automatique UTF-8 pour Windows",
+            "Support complet des caractères accentués",
+            "Support des emojis et symboles",
+            "Affichage correct dans CMD/PowerShell/Windows Terminal"
+        ],
+        "files": [
+            "twitter_scraper.py - Configuration UTF-8 ajoutée",
+            "run.bat - chcp 65001 ajouté",
+            "UTF8_FIX.md - Documentation du correctif"
+        ]
+    },
     "1.2.0": {
         "date": "2026-01-04",
         "features": [

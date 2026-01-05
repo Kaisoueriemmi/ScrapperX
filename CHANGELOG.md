@@ -2,7 +2,31 @@
 
 Toutes les modifications notables de ce projet seront documentées dans ce fichier.
 
-## [1.2.0] - 2026-01-04
+## [1.2.1] - 2026-01-05
+
+### 🔧 Correctif
+
+- **Encodage UTF-8 pour Windows**
+  - Configuration automatique de l'encodage UTF-8 dans `twitter_scraper.py`
+  - Ajout de `chcp 65001` dans `run.bat`
+  - Support complet des caractères accentués (é, è, à, ù, etc.)
+  - Support des emojis (🐦, ✨, 🚀, etc.)
+  - Support des apostrophes et symboles spéciaux
+  - Affichage correct dans CMD, PowerShell et Windows Terminal
+
+### 📝 Documentation
+
+- Création de `UTF8_FIX.md` - Guide complet du correctif UTF-8
+  - Explication du problème
+  - Solution technique détaillée
+  - Tests de vérification
+  - Dépannage et recommandations
+
+### 🎯 Compatibilité
+
+- Windows 10/11
+- PowerShell, CMD, Windows Terminal
+- Python 3.7+
 
 ### ✨ Ajouté
 
