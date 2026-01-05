@@ -2,7 +2,7 @@
 Version information for ScrapperX
 """
 
-__version__ = "1.2.1"
+__version__ = "1.2.2"
 __author__ = "Kais OUERIEMMI"
 __email__ = "contact@kaisoueriemmi.com"
 __status__ = "Production"

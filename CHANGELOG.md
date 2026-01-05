@@ -2,7 +2,51 @@
 
 Toutes les modifications notables de ce projet seront documentées dans ce fichier.
 
-## [1.2.1] - 2026-01-05
+## [1.2.2] - 2026-01-05
+
+### 🧹 Nettoyage et Optimisation
+
+- **Structure du Projet**
+  - Suppression de 12 fichiers de documentation redondants
+  - Consolidation de toute la documentation dans README.md
+  - Structure améliorée : 15 fichiers au lieu de 27 (-44%)
+  - Meilleure organisation et maintenabilité
+
+### 📚 Documentation
+
+- **README.md Complet et Consolidé**
+  - Installation détaillée (Windows, macOS, Linux)
+  - Utilisation (mode interactif et programmatique)
+  - Dépannage détaillé par plateforme
+  - Exemples d'utilisation complets
+  - Configuration et paramètres
+  - Sécurité et confidentialité
+  - Compatibilité multi-plateforme
+  - Performance et benchmarks
+  - 17 sections principales
+  - 12,861 octets d'informations
+
+### 🎯 Améliorations
+
+- Navigation simplifiée : un seul fichier à consulter
+- Maintenance facilitée : un seul fichier à mettre à jour
+- Cohérence : toutes les informations au même endroit
+- Projet plus professionnel et organisé
+
+### 📝 Fichiers Supprimés
+
+- FINAL_SUMMARY.md → Intégré dans README.md
+- MACOS_COMPATIBILITY.md → Section "Compatibilité" dans README.md
+- MACOS_READY.md → Section "macOS" dans README.md
+- PROJECT_COMPLETE.md → README.md
+- PROJECT_SUMMARY.md → README.md
+- QUICKSTART.md → Section "Installation" dans README.md
+- QUICKSTART_MACOS.md → Section "macOS" dans README.md
+- SECURITY_v1.2.0.md → Section "Sécurité" dans README.md
+- UTF8_FIX.md → Section "Dépannage" dans README.md
+- UTF8_PUSH_SUMMARY.md → Historique Git
+- DEMO.md → Section "Exemples" dans README.md
+- PUSH_SUMMARY.md → Historique Git
 
 ### 🔧 Correctif
 
